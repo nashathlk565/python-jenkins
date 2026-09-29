@@ -1,16 +1,22 @@
- pipeline {
+pipeline {
     agent any
 
     stages {
+        stage('Create Virtual Environment') {
+            steps {
+                bat 'python -m venv venv'
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
-                bat '"D:\\python jenkins\\venv\\Scripts\\python.exe" -m pip install -r requirements.txt'
+                bat 'venv\\Scripts\\python.exe -m pip install -r requirements.txt'
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat '"D:\\python jenkins\\venv\\Scripts\\python.exe" -m pytest'
+                bat 'venv\\Scripts\\python.exe -m pytest'
             }
         }
     }
